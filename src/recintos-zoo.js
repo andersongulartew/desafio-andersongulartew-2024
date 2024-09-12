@@ -29,7 +29,7 @@ class RecintosZoo {
         numero: 5,
         bioma: "savana",
         tamanhoTotal: 9,
-        animais: [{ tipo: "LEAO", quantidade: 0 }]
+        animais: [{ tipo: "LEAO", quantidade: 1 }]
       },
     ];
 
