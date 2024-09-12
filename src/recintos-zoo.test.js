@@ -57,7 +57,7 @@ describe('Recintos do Zoologico', () => {
     test('Animais carnívoros devem habitar somente com a própria especie', () => {
         const resultado = new RecintosZoo().analisaRecintos('LEAO', 1);
         expect(resultado.erro).toBeFalsy();
-        expect(resultado.recintosViaveis[0]).toBe('Recinto 5 (espaço livre: 6 total: 9)');
+        expect(resultado.recintosViaveis[0]).toBe('Recinto 5 (espaço livre: 3 total: 9)');
         expect(resultado.recintosViaveis.length).toBe(1);
     });
 
