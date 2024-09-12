@@ -36,13 +36,13 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.recintosViaveis.length).toBe(3);
     });
 
-    test('Deve rejeitar numero decimal', () => {
+    test('Deve rejeitar quantidade decimal', () => {
         const resultado = new RecintosZoo().analisaRecintos('MACACO', 0.5);
         expect(resultado.erro).toBe("Quantidade inválida");
         expect(resultado.recintosViaveis).toBeFalsy();
     });
 
-    test('Deve rejeitar numero negativo', () => {
+    test('Deve rejeitar quantidade negativa', () => {
         const resultado = new RecintosZoo().analisaRecintos('MACACO', -1);
         expect(resultado.erro).toBe("Quantidade inválida");
         expect(resultado.recintosViaveis).toBeFalsy();
@@ -54,7 +54,7 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.recintosViaveis).toBeFalsy();
     });
 
-    test('Carnivoros devem habitar com a propria especie', () => {
+    test('Animais carnívoros devem habitar somente com a própria especie', () => {
         const resultado = new RecintosZoo().analisaRecintos('LEAO', 1);
         expect(resultado.erro).toBeFalsy();
         expect(resultado.recintosViaveis[0]).toBe('Recinto 5 (espaço livre: 6 total: 9)');

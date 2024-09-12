@@ -33,7 +33,7 @@ A classe `RecintosZoo` é responsável por gerenciar os recintos e animais do zo
 *   `deveAdicionarEspacoExtra(recinto, novoAnimal)`: Verifica se é necessário adicionar espaço extra devido à presença de múltiplas espécies no recinto.
 *   `deveCalcularRecintoOcupado(recinto)`: Calcula o espaço ocupado no recinto.
 *   `todosAnimaisCompativeis(animaisExistentes, novoAnimal)`: Verifica se todos os animais existentes no recinto são compatíveis com o novo animal.
-*   `analisaRecintos(animal, quantidade)`: Analisa os recintos disponíveis e retorna uma lista de recintos viáveis para o novo animal.
+*   `analisaRecintos(tipo, quantidade)`: Analisa os recintos disponíveis e retorna uma lista de recintos viáveis para o novo animal.
 
 ### 2\. Testes Unitários para Verificação da Lógica
 
@@ -49,7 +49,6 @@ A classe `RecintosZooTest` contém testes unitários para verificar a lógica im
 *   `Deve encontrar recinto para 1 crocodilo`: Verifica se o sistema encontra um recinto viável para 1 crocodilo.
 *   `Deve encontrar recintos para 2 macacos`: Verifica se o sistema encontra recintos viáveis para 2 macacos.
 *   `Não deve permitir separar 12 macacos em dois recintos`: Verifica se o sistema não permite separar 12 macacos em dois recintos.
-*   `Deve encontrar recinto para 2 macacos em recinto vazio`: Verifica se o sistema encontra recintos viáveis para 2 macacos em recintos vazios.
 *   `Animais carnívoros devem habitar somente com a própria espécie`: Verifica se animais carnívoros habitam somente com a própria espécie.
 *   `Hipopótamo(s) só tolera(m) outras espécies estando num recinto com savana e rio`: Verifica se hipopótamos toleram outras espécies apenas em recintos com savana e rio.
 *   `Não deve encontrar recintos para 4 leões`: Verifica se o sistema não encontra recintos viáveis para 4 leões.
