@@ -1,135 +1,124 @@
-# RECINTOS DO ZOO
+## 🦁 Sistema de Organização de Zoológico 🐒
 
-## COMO BAIXAR O CÓDIGO E SUBMETER MINHA SOLUÇÃO?
-Para completar a etapa do desafio você terá que baixar a estrutura do código aqui na Azure, resolver o desafio usando Javascript e entregá-lo no repositório no seu github.
+## 📜 Descrição
 
-### BAIXANDO A ESTRUTURA
-Para baixar a estrutura no formato zip, basta clicar neste [link](https://dev.azure.com/db-tecnologia/99dbf7ce-dadd-40d3-b827-e1648cb6a262/_apis/git/repositories/877e7dfb-78ea-465e-bd88-9dbf83120933/items?path=/&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=main&resolveLfs=true&%24format=zip&api-version=5.0&download=true).
+Este projeto foi desenvolvido para ajudar na organização de um zoológico. A missão é construir a lógica para indicar os recintos onde novos animais se sintam confortáveis, seguindo uma série de regras específicas.
 
-### ENTREGANDO O DESAFIO
-Após resolver o desafio e validá-lo com os testes (mais detalhes nos tópicos abaixo), você terá que criar um repositório **público** no [Github](https://github.com/) com o **nome** de `desafio-seuUsername-2024` (substitua "seuUsername" pelo seu usuário do GitHub) e colocar o código na **branch** `main`.
+## 🗂️ Estrutura do Projeto
 
-Se você ainda não teve contato com essa ferramenta, não tem problema. Separamos um material para lhe ajudar nessa etapa: [Como usar Git e Github na prática](https://www.youtube.com/watch?v=UBAX-13g8OM).
+O projeto está estruturado em duas principais partes:
 
-## O DESAFIO
-Olá! Você foi contratado para ajudar na organização de um zoológico.
-Sua missão será construir a lógica para indicar os recintos onde novos animais se sintam confortáveis.
+1\. **Implementação da Lógica de Organização dos Recintos**
 
-### RECINTOS EXISTENTES
+2\. **Testes Unitários para Verificação da Lógica**
 
- O zoológico possui os seguintes recintos disponíveis.
+### 1\. Implementação da Lógica de Organização dos Recintos
 
-  | número    | bioma             | tamanho total |  animais existentes |
-  |-----------|-------------------|---------------|---------------------|
-  | 1         | savana            |   10          |   3 macacos         |
-  | 2         | floresta          |    5          |   vazio             |
-  | 3         | savana e rio      |    7          |  1 gazela           |
-  | 4         | rio               |    8          |   vazio             |
-  | 5         | savana            |    9          |  1 leão             |
+### Classe `RecintosZoo`
 
-### ANIMAIS
+A classe `RecintosZoo` é responsável por gerenciar os recintos e animais do zoológico. Ela contém métodos para verificar a compatibilidade dos animais com os recintos e calcular o espaço necessário.
 
- O zoológico só está habilitado a tratar dos animais abaixo.
- A tabela mostra o espaço que cada indivíduo ocupa e em quais biomas se adapta.
+### Atributos
 
-  | espécie    | tamanho | bioma                |
-  |------------|---------|----------------------|
-  | LEAO       |   3     |  savana              |
-  | LEOPARDO   |   2     |  savana              |
-  | CROCODILO  |   3     |  rio                 |
-  | MACACO     |   1     |  savana ou floresta  |
-  | GAZELA     |   2     |  savana              |
-  | HIPOPOTAMO |   4     |  savana ou rio       |
+*   `recintos`: Lista de recintos disponíveis no zoológico.
+*   `animais`: Mapa contendo informações sobre os animais, como tamanho, biomas e se são carnívoros.
 
-### REGRAS PARA ENCONTRAR UM RECINTO
+### Métodos
 
-1) Um animal se sente confortável se está num bioma adequado e com espaço suficiente para cada indivíduo
-2) Animais carnívoros devem habitar somente com a própria espécie
-3) Animais já presentes no recinto devem continuar confortáveis com a inclusão do(s) novo(s)
-4) Hipopótamo(s) só tolera(m) outras espécies estando num recinto com savana e rio
-5) Um macaco não se sente confortável sem outro animal no recinto, seja da mesma ou outra espécie
-6) Quando há mais de uma espécie no mesmo recinto, é preciso considerar 1 espaço extra ocupado
-7) Não é possível separar os lotes de animais nem trocar os animais que já existem de recinto (eles são muito apegados!).
-Por exemplo, se chegar um lote de 12 macacos, não é possível colocar 6 em 2 recintos.
+*   `ehBiomaAdequado(animal, biomaRecinto)`: Verifica se o bioma do recinto é adequado para o animal.
+*   `ehBiomaAdequadoSavanaRio(animal, biomaRecinto)`: Verifica se o bioma "savana e rio" é adequado para o animal.
+*   `verificaEspacoOcupadoPorAnimal(animal, quantidade)`: Calcula o espaço ocupado por um determinado número de animais.
+*   `verificaCompatibilidade(tipo1, tipo2)`: Verifica se dois tipos de animais são compatíveis para habitar o mesmo recinto.
+*   `verificaHipopotamo(animal, recinto)`: Verifica se um hipopótamo pode ser colocado em um determinado recinto.
+*   `deveAdicionarEspacoExtra(recinto, novoAnimal)`: Verifica se é necessário adicionar espaço extra devido à presença de múltiplas espécies no recinto.
+*   `deveCalcularRecintoOcupado(recinto)`: Calcula o espaço ocupado no recinto.
+*   `todosAnimaisCompativeis(animaisExistentes, novoAnimal)`: Verifica se todos os animais existentes no recinto são compatíveis com o novo animal.
+*   `analisaRecintos(animal, quantidade)`: Analisa os recintos disponíveis e retorna uma lista de recintos viáveis para o novo animal.
 
-### ENTRADAS E SAÍDAS
+### 2\. Testes Unitários para Verificação da Lógica
 
-1) O programa deve receber tipo e quantidade de animal (nessa ordem)
-2) O programa deve retornar uma estrutura contendo a lista de todos os recintos viáveis ordenada pelo número do recinto (caso existam) e a mensagem de erro (caso exista)
-3) A lista de recintos viáveis deve indicar o espaço livre que restaria após a inclusão do(s) animal(is) e o espaço total, no formato "Recinto nro (espaço livre: valorlivre total: valortotal)"
-4) Caso animal informado seja inválido, apresentar erro "Animal inválido"
-5) Caso quantidade informada seja inválida, apresentar erro "Quantidade inválida"
-6) Caso não haja recinto possível, apresentar erro "Não há recinto viável"
+### Classe de Testes `RecintosZooTest`
 
-### EXEMPLOS
+A classe `RecintosZooTest` contém testes unitários para verificar a lógica implementada na classe `RecintosZoo`.
 
-Entrada para um caso válido
-```js
-"MACACO", 2
+### Testes
+
+*   `Deve rejeitar animal inválido`: Verifica se o sistema rejeita um animal inválido.
+*   `Deve rejeitar quantidade inválida`: Verifica se o sistema rejeita uma quantidade inválida de animais.
+*   `Não deve encontrar recintos para 10 macacos`: Verifica se o sistema não encontra recintos viáveis para 10 macacos.
+*   `Deve encontrar recinto para 1 crocodilo`: Verifica se o sistema encontra um recinto viável para 1 crocodilo.
+*   `Deve encontrar recintos para 2 macacos`: Verifica se o sistema encontra recintos viáveis para 2 macacos.
+*   `Não deve permitir separar 12 macacos em dois recintos`: Verifica se o sistema não permite separar 12 macacos em dois recintos.
+*   `Deve encontrar recinto para 2 macacos em recinto vazio`: Verifica se o sistema encontra recintos viáveis para 2 macacos em recintos vazios.
+*   `Animais carnívoros devem habitar somente com a própria espécie`: Verifica se animais carnívoros habitam somente com a própria espécie.
+*   `Hipopótamo(s) só tolera(m) outras espécies estando num recinto com savana e rio`: Verifica se hipopótamos toleram outras espécies apenas em recintos com savana e rio.
+*   `Não deve encontrar recintos para 4 leões`: Verifica se o sistema não encontra recintos viáveis para 4 leões.
+*   `Deve rejeitar quantidade negativa`: Verifica se o sistema rejeita uma quantidade negativa de animais.
+*   `Deve rejeitar quantidade decimal`: Verifica se o sistema rejeita uma quantidade decimal de animais.
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+
+Node.js e npm instalados Ferramenta de teste (como Jest)
+
+### Passos para Executar
+
+1\. Clone o repositório:   
+
+```plaintext
+   git clone https://github.com/andersongulartew/desafio-andersongulartew-2024.git
+   cd desafio-andersongulartew-2024
 ```
-Saída
-```js
+
+2\. Instale as dependências:   
+
+```plaintext
+   npm install
+```
+
+3\. Execute os testes:   
+
+```plaintext
+   npm test
+```
+
+## 🛠️ Exemplo de Uso
+
+### Entrada para um Caso Válido
+
+```javascript
+const resultado = new RecintosZoo().analisaRecintos('MACACO', 2);
+console.log(resultado);
+```
+
+### Saída Esperada
+
+```javascript
 {
-  recintosViaveis: ["Recinto 1 (espaço livre: 5 total: 10)", 
-   "Recinto 2 (espaço livre: 3 total: 5)", 
-   "Recinto 3 (espaço livre: 2 total: 7)"]
+  recintosViaveis: [
+    "Recinto 1 (espaço livre: 5 total: 10)",
+    "Recinto 2 (espaço livre: 3 total: 5)",
+    "Recinto 3 (espaço livre: 2 total: 7)"
+  ]
 }
 ```
 
-Entrada para um caso inválido
-```js
-"UNICORNIO", 1
+### Entrada para um Caso Inválido
+
+```javascript
+const resultado = new RecintosZoo().analisaRecintos('UNICORNIO', 1);
+console.log(resultado);
 ```
-Saída
-```js
+
+### Saída Esperada
+
+```javascript
 {
   erro: "Animal inválido"
 }
 ```
 
-### O CÓDIGO
-Você está recebendo uma estrutura básica para desenvolver a lógica do desafio. O arquivo principal está localizado dentro da pasta `src` e se chama `recintos-zoo.js`. Você pode desenvolver a sua lógica criando outros arquivos, métodos e até mesmo outras classes, porém o resultado deve poder ser obtido através do método `analisaRecintos`.
+## 📝 Conclusão
 
-> **ALERTA**:
-> É importante que essa estrutura básica não seja alterada, pois as etapas automáticas da nossa validação dependem disso. Conseguir executar os passos descritos mais adiante na seção `VALIDANDO A SOLUÇÃO` também ajudará você a verificar que seu código segue a estrutura definida.
-
-Exemplo de chamada
-```js
-  new RecintosZoo().analisaRecintos('MACACO', 2);
-```
-
-### INSTALANDO E RODANDO NA SUA MÁQUINA
-1. Instalar o [Node](https://nodejs.org/en/)
-2. Instalar dependencias do projeto com o seguinte comando:
-```bash
-npm install
-```
-
-### VALIDANDO A SOLUÇÃO
-Junto com a estrutura básica você está recebendo alguns cenários de testes no arquivo `recintos-zoo.test.js` para auxiliar na validação da sua solução. Recomendamos que você crie mais casos de teste para aumentar a confiabilidade da sua solução.
-Para testar sua solução com os cenários existentes ou novos, rode o seguinte comando:
-```bash
-npm test
-```
-
-Para saber mais consulte a [Documentação do Jest](https://jestjs.io/pt-BR/docs/getting-started).
-
-### VALIDANDO A ENTREGA
-Para garantir que seu desafio vai ser considerado entregue, revise os seguintes pontos:
-
-#### GIT
-O repositório deve ser **público** e ter o **nome** e **branch** indicados na seção `ENTREGANDO O DESAFIO`.
-
-Para verificar que o repositório é público, deslogue-se do github e tente ver o código. Se conseguir, nós também conseguimos! Lembrando que vamos usar o link para o usuário informado durante o cadastro na Gupy. Veja [como alterar a visibilidade](https://docs.github.com/pt/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility#changing-a-repositorys-visibility).
-
-#### CÓDIGO
-A solução deve ser entregue em **javascript** e a **estrutura de pastas e arquivos** deve seguir o indicado na seção `O CÓDIGO`.
-
-O **export** da classe deve ser mantido da seguinte maneira para compatibilidade com o arquivo de testes:
-```js
-export { RecintosZoo as RecintosZoo };
-```
-
-Se todos os passos forem seguidos corretamente, você terá um repositório como o da figura abaixo (lembrando que é permitido criar mais arquivos), onde `seuUsername` é o seu usuário do GitHub, que você informou no questionário da Gupy.
-
-![Exemplo de repositório](https://startdbstorage.blob.core.windows.net/filecontainer/imagem-estrutura.png)
+Este projeto implementa a lógica para organizar recintos de um zoológico, garantindo que os animais sejam colocados em recintos adequados e confortáveis. A lógica foi testada extensivamente com testes unitários para garantir a precisão e a robustez do sistema.
